@@ -86,6 +86,7 @@
                 },
                 signupForm: {
                     name: '',
+
                     email: '',
                     password: ''
                 },
@@ -135,6 +136,7 @@
                     // we send the user to vuex to set
                     this.$store.commit('setCurrentUser', credential.user)
                     console.log('signup()', credential.user)
+                    console.log('signup() auth:', fb.auth)
                     // create user obj in firebase collection
                     fb.usersCollection.doc(credential.user.uid).set({
                         name: this.signupForm.name,

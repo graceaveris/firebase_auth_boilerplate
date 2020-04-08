@@ -1,34 +1,36 @@
 import firebase from 'firebase'
-import 'firebase/firestore'
+
+// <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
 
 // firebase init goes here
-const config = {
-    apiKey: "AIzaSyCDkR8A_vZ945qreoreq3ctrUbv0BAi8pM",
-    authDomain: "vue-social-fec09.firebaseapp.com",
-    databaseURL: "https://vue-social-fec09.firebaseio.com",
-    projectId: "vue-social-fec09",
-    storageBucket: "vue-social-fec09.appspot.com",
-    messagingSenderId: "1040284118537",
-    appId: "1:1040284118537:web:ec5cf6089129f2805152d8"
-};
-firebase.initializeApp(config)
+var firebaseConfig = {
+    apiKey: "AIzaSyAsvEoh-ybZi-Ul1dR6wqHAy1r2qFtYFiM",
+    authDomain: "vue-boiler-realtime.firebaseapp.com",
+    databaseURL: "https://vue-boiler-realtime.firebaseio.com",
+    projectId: "vue-boiler-realtime",
+    storageBucket: "vue-boiler-realtime.appspot.com",
+    messagingSenderId: "634866889133",
+    appId: "1:634866889133:web:438a078614a76802e1b124"
+  };
+  firebase.initializeApp(firebaseConfig);
 
 // firebase utils
-const db = firebase.firestore()
+// const db = firebase.firestore()
 const auth = firebase.auth()
+console.log('inside config', auth)
 const currentUser = auth.currentUser
 
 // add firebase settings here
-const settings = {
-}
-db.settings(settings)
+// const settings = {
+// }
+// db.settings(settings)
 
 // firebase collections
-const usersCollection = db.collection('users')
+// const usersCollection = db.collection('users')
 
 export {
-    db,
+    // db,
     auth,
     currentUser,
-    usersCollection,
+    // usersCollection,
 }
