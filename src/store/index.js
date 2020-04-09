@@ -17,17 +17,18 @@ export default new Vuex.Store({
       state.userProfile = val
     }
   },
+
   actions: {
+    // we use 'once' to fetch simple data thats not going to change
     fetchUserProfile({ commit, state }) {
-      fb.usersCollection.doc(state.currentUser.uid).get().then(res => {
-          commit('setUserProfile', res.data())
-          console.log('commit success - fetchUserProfile() - in store')
+      fb.db.ref(`/users/${state.currentUser.uid}`).once('value').then(res => {
+          commit('setUserProfile', res.val())
       }).catch(err => {
-        console.log('err - fetchUserProfile() - in store', err)
-          console.log(err)
+        console.log(err)
       })
     }
   },
+  
   modules: {
   }
 })

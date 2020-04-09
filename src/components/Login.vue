@@ -86,7 +86,6 @@
                 },
                 signupForm: {
                     name: '',
-
                     email: '',
                     password: ''
                 },
@@ -120,6 +119,7 @@
                 fb.auth.signInWithEmailAndPassword(this.loginForm.email, this.loginForm.password).then(user => {
                     //mght be just single user
                     this.$store.commit('setCurrentUser', user.user)
+
                     this.$store.dispatch('fetchUserProfile')
                     this.performingRequest = false
                     this.$router.push('/dashboard')
@@ -135,12 +135,12 @@
                 fb.auth.createUserWithEmailAndPassword(this.signupForm.email, this.signupForm.password).then(credential => {
                     // we send the user to vuex to set
                     this.$store.commit('setCurrentUser', credential.user)
-                    console.log('signup()', credential.user)
-                    console.log('signup() auth:', fb.auth)
                     // create user obj in firebase collection
-                    fb.usersCollection.doc(credential.user.uid).set({
+                    
+                    fb.db.ref(`users/${credential.user.uid}`).set({
                         name: this.signupForm.name,
-                        title: this.signupForm.title
+                        email: this.signupForm.email
+    
                     }).then(() => {
                         this.$store.dispatch('fetchUserProfile')
                         this.performingRequest = false
@@ -156,6 +156,7 @@
                     this.errorMsg = err.message
                 })
             },
+
             resetPassword() {
                 this.performingRequest = true
                 fb.auth.sendPasswordResetEmail(this.passwordForm.email).then(() => {

@@ -1,7 +1,5 @@
 import firebase from 'firebase'
 
-// <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
-
 // firebase init goes here
 var firebaseConfig = {
     apiKey: "AIzaSyAsvEoh-ybZi-Ul1dR6wqHAy1r2qFtYFiM",
@@ -15,22 +13,14 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
 
 // firebase utils
-// const db = firebase.firestore()
+const db = firebase.database()
 const auth = firebase.auth()
-console.log('inside config', auth)
+console.log('inside config - auth:', auth)
+console.log('inside config db:', db)
 const currentUser = auth.currentUser
 
-// add firebase settings here
-// const settings = {
-// }
-// db.settings(settings)
-
-// firebase collections
-// const usersCollection = db.collection('users')
-
 export {
-    // db,
+    db,
     auth,
     currentUser,
-    // usersCollection,
 }
