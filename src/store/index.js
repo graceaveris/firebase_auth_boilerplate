@@ -9,11 +9,11 @@ fb.auth.onAuthStateChanged(user => {
   if (user) {
       store.commit('setCurrentUser', user)
       store.dispatch('fetchUserProfile')
-      //listener
-      fb.db.ref(`/users/${user.uid}`).on('value', function(snapshot) {
-        console.log('snap:', snapshot)
-        store.commit('setUserProfile', snapshot.val())
-      })
+      //REALTIME LISTENER
+      //create ref to the current user in the db
+      const dbObjectRef = fb.db.ref().child(`/users/${user.uid}`)
+      //whenever the current user changes in the db we commit the changes to store!
+      dbObjectRef.on('value', snap => store.commit('setUserProfile', snap.val()))
   }
 })
 
@@ -47,12 +47,12 @@ export const store = new Vuex.Store({
       })
     },
 
-    updateProfile({ state, commit }, data) {
+    updateProfile({ state }, data) {
       //here is where we need the snapshot to listen for update isn the db!
       let name = data.name
       let email = data.email
       fb.db.ref(`/users/${state.currentUser.uid}`).update({ name, email }).then(user => {
-        commit('setUserProfile', { name, email })
+        // commit('setUserProfile', { name, email })
         console.log('user:', user)
       }).catch(err => {
           console.log(err)
